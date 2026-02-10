@@ -1,13 +1,12 @@
-# Salt eCommerce Task
+# fsharp-ecommerce
 
-This is a task for Salt in which a basic clone of an ecommerce website has been made. One can view products and add/remove them from the cart. One can search for products by name.
-![Salt eCommerce Preview](https://i.ibb.co/71D3XCW/Screenshot-2020-08-12-at-18-45-45.png)
+A full-stack ecommerce prototype featuring product browsing, cart management, and search. Built with an F#/Giraffe REST API and a React/Redux frontend, backed by MongoDB.
+
+![eCommerce Preview](https://i.ibb.co/71D3XCW/Screenshot-2020-08-12-at-18-45-45.png)
 
 ---
 
 ## Backend
-
-The backend was written with the help of the following technologies:
 
 - F#
 - Giraffe
@@ -17,8 +16,6 @@ The backend was written with the help of the following technologies:
 
 ## Frontend
 
-The frontend was written with the help of the following technologies:
-
 - JavaScript
 - React
 - Redux
@@ -26,17 +23,27 @@ The frontend was written with the help of the following technologies:
 
 ---
 
-### How to run
+## How to run
 
-This project requires the installation of MongoDB, a dotnet environment and a JS package manager such as npm or yarn.
+Prerequisites: MongoDB, .NET SDK, and a JS package manager (npm or yarn).
 
-- Clone this repo to your desktop
-- Export the MongoDB environment variable
-- `export MONGO_URL=mongodb://localhost:27017/`
-- Import the CSV file to MongoDB, openfoodfacts.csv has had the 'code' column changed to \_id
-- `mongoimport --type tsv --db products -c products --ignoreBlanks --fieldFile=fieldtypes.txt --columnsHaveTypes --drop openfoodfacts.csv`
-- cd into the Backend folder and start the F# API
-- `dotnet run`
-- cd into the Frontend/salt-frontend/ and start the frontend
-- First `yarn install`
-- Then `yarn start`
+1. Clone this repo
+2. Export the MongoDB environment variable
+   ```
+   export MONGO_URL=mongodb://localhost:27017/
+   ```
+3. Import the product data into MongoDB (`openfoodfacts.csv` has had the `code` column changed to `_id`)
+   ```
+   mongoimport --type tsv --db products -c products --ignoreBlanks --fieldFile=fieldtypes.txt --columnsHaveTypes --drop openfoodfacts.csv
+   ```
+4. Start the backend
+   ```
+   cd Backend
+   dotnet run
+   ```
+5. Start the frontend
+   ```
+   cd Frontend/salt-frontend
+   yarn install
+   yarn start
+   ```
