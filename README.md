@@ -25,7 +25,7 @@ A full-stack ecommerce prototype featuring product browsing, cart management, an
 
 ## How to run
 
-Prerequisites: MongoDB, .NET SDK, and npm.
+Prerequisites: MongoDB, .NET 8 SDK, and npm.
 
 1. Clone this repo
 2. Export the MongoDB environment variable
