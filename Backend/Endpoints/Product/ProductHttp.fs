@@ -3,7 +3,6 @@ namespace Product.Http
 open Giraffe
 open Microsoft.AspNetCore.Http
 open Product
-open FSharp.Control.Tasks.V2
 open System
 
 

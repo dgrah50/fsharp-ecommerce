@@ -42,7 +42,7 @@ let configureApp (app : IApplicationBuilder) =
 
 let configureServices (services : IServiceCollection) =
   // Connect to database, ensure that the mongoDB URL has been exported as an environment variable
-  let mongo = MongoClient (Environment.GetEnvironmentVariable "MONGO_URL")
+  let mongo = new MongoClient(Environment.GetEnvironmentVariable "MONGO_URL")
   let db = mongo.GetDatabase "products"
 
 

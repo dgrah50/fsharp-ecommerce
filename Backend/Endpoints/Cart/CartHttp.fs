@@ -4,7 +4,6 @@ open Giraffe
 open Microsoft.AspNetCore.Http
 open Cart
 open Product
-open FSharp.Control.Tasks.V2
 open System
 
 module CartHttp =
