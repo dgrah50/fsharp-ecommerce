@@ -25,7 +25,7 @@ A full-stack ecommerce prototype featuring product browsing, cart management, an
 
 ## How to run
 
-Prerequisites: MongoDB, .NET SDK, and a JS package manager (npm or yarn).
+Prerequisites: MongoDB, .NET SDK, and npm.
 
 1. Clone this repo
 2. Export the MongoDB environment variable
@@ -44,6 +44,6 @@ Prerequisites: MongoDB, .NET SDK, and a JS package manager (npm or yarn).
 5. Start the frontend
    ```
    cd Frontend/salt-frontend
-   yarn install
-   yarn start
+   npm install
+   npm start
    ```

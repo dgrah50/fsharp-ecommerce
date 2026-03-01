@@ -1,6 +1,6 @@
 //Dependencies
 import React, { Component } from "react";
-import ProductCard from "../../components/productCard.js";
+import ProductCard from "../../components/productCard.jsx";
 import { Pagination } from "antd";
 import axios from "axios";
 

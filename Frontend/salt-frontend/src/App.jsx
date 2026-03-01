@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import "antd/dist/antd.css";
+import "antd/dist/reset.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import NavBar from "./components/navBar.js";
-import CartPage from "./pages/Cart/index.js";
-import ResultsPage from "./pages/Results/index.js";
-import ProductPage from "./pages/Product/index.js";
-import HomePage from "./pages/Home/index.js";
+import NavBar from "./components/navBar.jsx";
+import CartPage from "./pages/Cart/index.jsx";
+import ResultsPage from "./pages/Results/index.jsx";
+import ProductPage from "./pages/Product/index.jsx";
+import HomePage from "./pages/Home/index.jsx";
 
 function App() {
   return (

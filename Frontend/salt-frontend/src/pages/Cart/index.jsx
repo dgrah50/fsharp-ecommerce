@@ -1,6 +1,6 @@
 //Dependencies
 import React, { Component } from "react";
-import ProductCard from "../../components/productCard.js";
+import ProductCard from "../../components/productCard.jsx";
 import { connect } from "react-redux";
 import { itemsFetchData } from "../../actions/items";
 
