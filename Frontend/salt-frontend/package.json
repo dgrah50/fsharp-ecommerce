@@ -36,6 +36,6 @@
   "proxy": "http://localhost:5000",
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0",
-    "vite": "^6.4.1"
+    "vite": "^7.3.1"
   }
 }
