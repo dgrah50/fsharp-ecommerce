@@ -2,6 +2,8 @@
 
 React/Redux frontend for the F# ecommerce backend.
 
+Requires Node.js `20.19+` (or `22.12+`) because the project uses Vite 7.
+
 ## Scripts
 
 - `npm start` (or `npm run dev`): starts the Vite dev server on `http://localhost:5173`

@@ -5,14 +5,14 @@ import {
   ShoppingCartOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { itemsFetchData } from "../actions/items";
 import axios from "axios";
 const { Meta } = Card;
 
 const ProductCard = (props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { product, idx, width = "20%", cart = false } = props;
 
   // If image is present then load it, else load a placeholder
@@ -71,7 +71,7 @@ const ProductCard = (props) => {
 
   // open up a product page to get specific details
   const openItemDetail = (product) => {
-    history.push(`/product/${product._id}`);
+    navigate(`/product/${product._id}`);
   };
 
   // If on the cart page then we wish to have a delete button

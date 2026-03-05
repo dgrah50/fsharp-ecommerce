@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import "antd/dist/reset.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/navBar.jsx";
 import CartPage from "./pages/Cart/index.jsx";
 import ResultsPage from "./pages/Results/index.jsx";
@@ -12,12 +12,12 @@ function App() {
   return (
     <Router>
       <NavBar />
-      <Switch>
-        <Route path="/cart" component={CartPage} />
-        <Route path="/results/:query" component={ResultsPage} />
-        <Route path="/product/:id" component={ProductPage} />
-        <Route path="/" component={HomePage} />
-      </Switch>
+      <Routes>
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/results/:query" element={<ResultsPage />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </Router>
   );
 }

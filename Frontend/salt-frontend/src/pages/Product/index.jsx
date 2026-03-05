@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import ProductCard from "../../components/productCard.jsx";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -12,10 +13,13 @@ class ProductPage extends Component {
   }
   // When the page loads get the item with the specific ID
   componentDidMount() {
-    const {
-      match: { params },
-    } = this.props;
-    this.fetchProducts(params.id);
+    this.fetchProducts(this.props.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.id !== this.props.id) {
+      this.fetchProducts(this.props.id);
+    }
   }
 
   fetchProducts = (id) => {
@@ -124,4 +128,9 @@ const headerWrapperStyle = {
   justifyContent: "center",
 };
 
-export default ProductPage;
+function ProductPageWithParams() {
+  const { id } = useParams();
+  return <ProductPage id={id || ""} />;
+}
+
+export default ProductPageWithParams;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { itemsFetchData } from "../actions/items";
@@ -13,7 +13,7 @@ function NavBar(props) {
     props.fetchData("http://localhost:5000/cart");
   }, []);
   const counter = useSelector((state) => state.items).length;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div style={barStyle}>
@@ -25,7 +25,7 @@ function NavBar(props) {
         enterButton="Search"
         size="large"
         style={{ width: "40%" }}
-        onSearch={(value) => searchForItem(value, history)}
+        onSearch={(value) => searchForItem(value, navigate)}
       />
       <Link to="/cart">
         <h1 style={linkStyle}>Cart ({counter})</h1>
@@ -35,8 +35,8 @@ function NavBar(props) {
 }
 
 // When the search button is pushed, go to the results screen
-const searchForItem = (value, history) => {
-  history.push(`/results/${value}`);
+const searchForItem = (value, navigate) => {
+  navigate(`/results/${value}`);
 };
 
 // Redux helper functions

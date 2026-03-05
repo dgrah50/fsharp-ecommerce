@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import ProductCard from "../../components/productCard.jsx";
 import { Pagination } from "antd";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 class ResultsPage extends Component {
   constructor(props) {
@@ -16,12 +17,17 @@ class ResultsPage extends Component {
 
   // When the page loads, destructure the paramaters and then fetch the relevant products from the API
   componentDidMount() {
-    const {
-      match: { params },
-    } = this.props;
-    this.setState({ query: params.query }, () => {
+    this.setState({ query: this.props.query }, () => {
       this.fetchProducts(this.state.query);
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.query !== this.props.query) {
+      this.setState({ query: this.props.query, currentPage: 1 }, () => {
+        this.fetchProducts(this.state.query);
+      });
+    }
   }
 
   // Fetch products with the given product name
@@ -56,7 +62,9 @@ class ResultsPage extends Component {
           <h1>Search Results</h1>
         </div>
         <div style={productWrapperStyle}>
-          {this.state.products.map((product, idx) => ProductCard(product, idx))}
+          {this.state.products.map((product, idx) => (
+            <ProductCard product={product} idx={idx} key={idx} />
+          ))}
         </div>
         <div style={paginationWrapperStyle}>
           <Pagination
@@ -108,4 +116,9 @@ const paginationWrapperStyle = {
   paddingBottom: 30,
 };
 
-export default ResultsPage;
+function ResultsPageWithParams() {
+  const { query } = useParams();
+  return <ResultsPage query={query || ""} />;
+}
+
+export default ResultsPageWithParams;
