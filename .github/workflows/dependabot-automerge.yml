@@ -43,8 +43,8 @@ jobs:
           echo "Timed out waiting for required CI"
           exit 1
 
-      - name: Enable auto-merge after CI passes
+      - name: Merge after CI passes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash "$PR_URL"
+        run: gh pr merge --squash --delete-branch "$PR_URL"
