@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
 
@@ -14,21 +15,35 @@ jobs:
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for CI checks
+      - name: Wait for frontend and backend CI
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr checks "$PR_URL" --watch --fail-fast
+        run: |
+          set -euo pipefail
+          sha="${{ github.event.pull_request.head.sha }}"
 
-      - uses: dependabot/fetch-metadata@v2
-        id: metadata
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          for attempt in $(seq 1 60); do
+            checks="$(gh api "repos/${{ github.repository }}/commits/${sha}/check-runs?per_page=100")"
+            ci_checks="$(jq -c '[.check_runs[] | select(.app.slug == "github-actions" and (.name == "Frontend build" or .name == "Backend build"))]' <<<"$checks")"
+            count="$(jq 'length' <<<"$ci_checks")"
+            failed="$(jq '[.[] | select(.status == "completed" and .conclusion != "success")] | length' <<<"$ci_checks")"
+            passed="$(jq '[.[] | select(.status == "completed" and .conclusion == "success")] | length' <<<"$ci_checks")"
 
-      - name: Enable auto-merge for patch and minor updates
-        if: >-
-          steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
-          steps.metadata.outputs.update-type == 'version-update:semver-minor'
+            if [ "$failed" -gt 0 ]; then
+              echo "Required CI failed"
+              exit 1
+            fi
+            if [ "$count" -eq 2 ] && [ "$passed" -eq 2 ]; then
+              exit 0
+            fi
+            sleep 10
+          done
+
+          echo "Timed out waiting for required CI"
+          exit 1
+
+      - name: Enable auto-merge after CI passes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
