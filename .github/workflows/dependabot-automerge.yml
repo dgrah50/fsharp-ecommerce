@@ -25,7 +25,7 @@ jobs:
 
           for attempt in $(seq 1 60); do
             checks="$(gh api "repos/${{ github.repository }}/commits/${sha}/check-runs?per_page=100")"
-            ci_checks="$(jq -c '[.check_runs[] | select(.app.slug == "github-actions" and (.name == "Frontend build" or .name == "Backend build"))]' <<<"$checks")"
+            ci_checks="$(jq -c '[.check_runs[] | select(.app.slug == "github-actions" and (.name == "Frontend build" or .name == "Backend build"))] | sort_by(.name, .started_at) | group_by(.name) | map(.[-1])' <<<"$checks")"
             count="$(jq 'length' <<<"$ci_checks")"
             failed="$(jq '[.[] | select(.status == "completed" and .conclusion != "success")] | length' <<<"$ci_checks")"
             passed="$(jq '[.[] | select(.status == "completed" and .conclusion == "success")] | length' <<<"$ci_checks")"
